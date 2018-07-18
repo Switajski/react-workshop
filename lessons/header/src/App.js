@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Header from './Header'
+
 import './App.css';
 
 /**
@@ -18,16 +19,22 @@ import './App.css';
  *    
  */
 class App extends Component {
+
+  constructor() {
+    super()
+    this.state = { showIcon: true }
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
+        <Header logo={this.state.showIcon} >Welcome to React</Header>
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
+        <button onClick={() => this.setState({ showIcon: !this.state.showIcon })}>
+          show icon
+        </button>
       </div>
     );
   }

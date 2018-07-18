@@ -60,17 +60,7 @@ export default class Presentation extends React.Component {
             <ListItem>Migration of da-strategyreport to React</ListItem>
           </List>
         </Slide>
-        <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
-          <Heading size={3} textColor="primary">Install tools</Heading>
-          <List>
-            <ListItem>node package manager (npm) <br />
-              For macOS, <code>brew install yarn</code><br />
-              For windows, <code>choco install yarn</code> <br />
-              <Link href={'https://chocolatey.org/'}>(see Chocolatey)</Link><br /></ListItem>
-            <br />
-            <ListItem>your favorite editor </ListItem>
-          </List>
-        </Slide>
+
         <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
           <Heading size={3} textColor="primary">Introduction to React</Heading>
           <List>
@@ -111,13 +101,36 @@ export default class Presentation extends React.Component {
         </Slide>
 
         <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
+          <Heading size={3} textColor="primary">Hands on code!</Heading>
+        </Slide>
+
+        <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
+          <Heading size={3} textColor="primary">Install tools</Heading>
+          <List>
+            <ListItem>node package manager (npm) <br />
+              For macOS, <code>brew install yarn</code><br />
+              For windows, <code>choco install yarn</code> <br />
+              <Link href={'https://chocolatey.org/'}>(see Chocolatey)</Link><br /></ListItem>
+            <br />
+            <ListItem>your favorite editor </ListItem>
+          </List>
+        </Slide>
+
+        <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
+          <Heading size={3} textColor="primary">Create your own app</Heading>
+          <Text textColor="primary"><code>$ npx create-react-app my-app</code></Text>
+        </Slide>
+
+        <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
           <Heading size={3} textColor="primary" caps>Basics</Heading>
+          <Text textColor="primary">Lesson Header: please </Text>
           <List>
             <ListItem>Combining HTML and JSX</ListItem>
             <ListItem>State</ListItem>
             <ListItem>Props</ListItem>
             <ListItem>Controlled vs uncontrolled components</ListItem>
           </List>
+
         </Slide>
 
         <Slide transition={["fade"]} bgColor="secondary" textColor="primary" textSize={1}>

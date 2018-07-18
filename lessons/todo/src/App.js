@@ -7,7 +7,6 @@ import './App.css';
  * Lesson TODO app.
  * Objectives: 
  * make todos addable
- * make todos removable
  * make todos checkable / uncheckable
  */
 class App extends React.Component {
@@ -15,11 +14,12 @@ class App extends React.Component {
     super(props)
     this.state = {
       items: [
-        { id: 1, text: "Learn JavaScript", done: false },
-        { id: 2, text: "Learn React", done: false },
-        { id: 3, text: "Play around in JSFiddle", done: true },
-        { id: 4, text: "Build something awesome", done: true }
-      ]
+        { id: 0, text: "Learn JavaScript", done: false },
+        { id: 1, text: "Learn React", done: false },
+        { id: 2, text: "Play around in JSFiddle", done: true },
+        { id: 3, text: "Build something awesome", done: true }
+      ],
+      todoInput: 'asdf'
     }
   }
 
@@ -32,6 +32,10 @@ class App extends React.Component {
     this.setState({ items: newItems })
   }
 
+  onTodoInputChange = e => {
+    this.setState({ todoInput: e.target.value })
+  }
+
   render() {
     return (
       <div>
@@ -42,11 +46,28 @@ class App extends React.Component {
               <input type="checkbox" checked={item.done}
                 onClick={() => this.toggle(item.id)}
               />
-              <span>{item.text}</span>
+              <span style={{
+                textDecoration: item.done ? 'line-through' : 'none'
+              }}>{item.text}</span>
             </li>
           ))}
         </ol>
-      </div>
+        <form onSubmit={e => {
+          e.preventDefault()
+          this.setState({
+            items: [...this.state.items, {
+              id: this.state.items.length,
+              done: false,
+              text: this.state.todoInput
+            }],
+            todoInput: ''
+          })
+        }}>
+          Add todo:<input type='text' value={this.state.todoInput}
+            onChange={this.onTodoInputChange} />
+          <button type='submit'>add</button>
+        </form>
+      </div >
     )
   }
 }

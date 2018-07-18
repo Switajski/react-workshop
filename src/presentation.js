@@ -39,7 +39,9 @@ const theme = createTheme(
 
 export default class Presentation extends React.Component {
   render() {
-    const Li = (props) => <ListItem textSize={28} {...props}>{props.children}</ListItem>
+    const Li = props => <ListItem textSize={28} {...props} />
+    const H = props => <Heading size={3} textColor="primary" {...props} />
+    const T = props => <Text textColor="primary" {...props} />
 
     return (
       <Deck transition={["zoom", "slide"]} transitionDuration={500} theme={theme}>
@@ -50,13 +52,14 @@ export default class Presentation extends React.Component {
           <Text margin="10px 0 0" textColor="tertiary" size={1} fit bold>
             at IT-Manufactory
           </Text>
+          <Text size={5}>presentation & code available at <code>git@digital-automotive-engineering.com:switajskim/react-workshop.git</code></Text>
         </Slide>
         <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
-          <Heading size={3} textColor="primary" caps>Agenda</Heading>
+          <H caps>Agenda</H>
           <List>
             <ListItem>Introduction to react</ListItem>
-            <ListItem>Basics</ListItem>
-            <ListItem>Hands on code: Install tools</ListItem>
+            <ListItem>Install tools</ListItem>
+            <ListItem>Hands on code!</ListItem>
             <ListItem>Migration of da-strategyreport to React</ListItem>
           </List>
         </Slide>
@@ -89,7 +92,7 @@ export default class Presentation extends React.Component {
         </Slide>
 
         <Slide transition={["fade"]} bgColor="secondary" textColor="primary" textSize={1}>
-          <Heading size={3} textColor="primary">React - the bad</Heading>
+          <H>React - the bad</H>
           <Heading size={5} textColor="primary">React is nothing but the view</Heading>
           <List >
             <Li>No events</Li>
@@ -117,64 +120,100 @@ export default class Presentation extends React.Component {
         </Slide>
 
         <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
-          <Heading size={3} textColor="primary">Create your own app</Heading>
+          <H>Create your own app</H>
           <Text textColor="primary"><code>$ npx create-react-app my-app</code></Text>
         </Slide>
 
-        <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
-          <Heading size={3} textColor="primary" caps>Basics</Heading>
-          <Text textColor="primary">Lesson Header: please </Text>
-          <List>
-            <ListItem>Combining HTML and JSX</ListItem>
-            <ListItem>State</ListItem>
-            <ListItem>Props</ListItem>
-            <ListItem>Controlled vs uncontrolled components</ListItem>
-          </List>
 
+
+        <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
+          <H textColor="primary">Lesson Header</H>
+          <Heading textColor="primary" size={5}>Objectives:</Heading>
+          <List>
+            refactor the header to a Header component:
+              <CodePane source='<Header>Welcome to React</Header>' /> <br />
+            make showing logo optional by using props:
+              <CodePane source='<Header logo>Welcome to React</Header>' /> <br />
+
+            make a button, that toggles the logo:
+              <CodePane lang='javascript' source={`constructor() {
+    super()
+    this.state = { showIcon: true }
+  }
+`} /> <br />
+          </List>
+          <Text textColor="primary" textSize={18}>for solution type: <br />
+            <code>$ git clone git@digital-automotive-engineering.com:switajskim/react-workshop.git</code>
+          </Text>
+        </Slide>
+
+
+
+        <Slide transition={["fade"]} bgColor="secondary" textColor="primary" textSize={1}>
+          <H>Lesson TodoApp</H>
+          <Heading textColor="primary" size={5}>Objectives:</Heading>
+          <List>
+            <ListItem>make todos addable</ListItem>
+            <ListItem>make todos checkable / uncheckable</ListItem>
+          </List>
+          <Text textColor="primary" textSize={18}>for solution type: <br />
+            <code>$ git clone git@digital-automotive-engineering.com:switajskim/react-workshop.git</code>
+          </Text>
         </Slide>
 
         <Slide transition={["fade"]} bgColor="secondary" textColor="primary" textSize={1}>
+
           <CodePane
             lang="jsx"
             source={
-              `class App extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      items: [
-        { text: "Learn JavaScript", done: false },
-        { text: "Learn React", done: false },
-        { text: "Play around in JSFiddle", done: true },
-        { text: "Build something awesome", done: true }
-      ]
+              `
+    class App extends React.Component {
+      constructor(props) {
+        super(props)
+        this.state = {
+          items: [
+            { id: 1, text: "Learn JavaScript", done: false },
+            { id: 2, text: "Learn React", done: false },
+            { id: 3, text: "Play around in JSFiddle", done: true },
+            { id: 4, text: "Build something awesome", done: true }
+          ]
+        }
+      }
+    
+      render() {
+        return (
+          <div>
+            <h2>Todos:</h2>
+            <ol>
+              {this.state.items.map(item => (
+                <li key={item.id}>
+                  <input type="checkbox" checked={item.done} />
+                  <span style={{textDecoration: done ? 'line-through' : 'none'}}>
+                    {item.text}
+                  </span>
+                </li>
+              ))}
+            </ol>
+            <form onSubmit={e => {
+              e.preventDefault()
+              console.log("implement me")
+            }}>
+              Add todo:<input type='text' value={this.state.todoInput} />
+              <button type='submit'>add</button>
+            </form>
+          </div>
+        )
+      }
     }
-  }
-  
-  render() {
-    return (
-      <div>
-        <h2>Todos:</h2>
-        <ol>
-        {this.state.items.map(item => (
-          <li key={item.id}>
-            <label>
-              <input type="checkbox" disabled readOnly checked={item.done} /> 
-              <span className={item.done ? "done" : ""}>{item.text}</span>
-            </label>
-          </li>
-        ))}
-        </ol>
-      </div>
-    )
-  }
-}`
+    
+    export default App;`
             }
             margin="20px auto"
             overflow="overflow"
           />
         </Slide>
 
-      </Deck>
+      </Deck >
     );
   }
 }

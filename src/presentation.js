@@ -20,6 +20,12 @@ import todo from './todo.example'
 
 // Import theme
 import createTheme from 'spectacle/lib/themes/default';
+import TodoAppCode from './TodoAppCode';
+import JsonEndpointCode from './JsonEndpointCode';
+import JsonServletCode from './JsonServletCode';
+import FetchCode from './FetchCode'
+import ProxyConfig from './ProxyConfig';
+import WebXmlConfig from './WebXmlConfig';
 
 // Require CSS
 require('normalize.css');
@@ -42,6 +48,7 @@ export default class Presentation extends React.Component {
     const Li = props => <ListItem textSize={28} {...props} />
     const H = props => <Heading size={3} textColor="primary" {...props} />
     const T = props => <Text textColor="primary" {...props} />
+    const S = props => <Slide transition={["fade"]} bgColor="secondary" textColor="primary" textSize={1} {...props} />
 
     return (
       <Deck transition={["zoom", "slide"]} transitionDuration={500} theme={theme}>
@@ -124,8 +131,6 @@ export default class Presentation extends React.Component {
           <Text textColor="primary"><code>$ npx create-react-app my-app</code></Text>
         </Slide>
 
-
-
         <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
           <H textColor="primary">Lesson Header</H>
           <Heading textColor="primary" size={5}>Objectives:</Heading>
@@ -133,7 +138,7 @@ export default class Presentation extends React.Component {
             refactor the header to a Header component:
               <CodePane source='<Header>Welcome to React</Header>' /> <br />
             make showing logo optional by using props:
-              <CodePane source='<Header logo>Welcome to React</Header>' /> <br />
+              <CodePane source='<Header logo={true}>Welcome to React</Header>' /> <br />
 
             make a button, that toggles the logo:
               <CodePane lang='javascript' source={`constructor() {
@@ -146,8 +151,6 @@ export default class Presentation extends React.Component {
             <code>$ git clone git@digital-automotive-engineering.com:switajskim/react-workshop.git</code>
           </Text>
         </Slide>
-
-
 
         <Slide transition={["fade"]} bgColor="secondary" textColor="primary" textSize={1}>
           <H>Lesson TodoApp</H>
@@ -162,57 +165,84 @@ export default class Presentation extends React.Component {
         </Slide>
 
         <Slide transition={["fade"]} bgColor="secondary" textColor="primary" textSize={1}>
-
           <CodePane
             lang="jsx"
-            source={
-              `
-    class App extends React.Component {
-      constructor(props) {
-        super(props)
-        this.state = {
-          items: [
-            { id: 1, text: "Learn JavaScript", done: false },
-            { id: 2, text: "Learn React", done: false },
-            { id: 3, text: "Play around in JSFiddle", done: true },
-            { id: 4, text: "Build something awesome", done: true }
-          ]
-        }
-      }
-    
-      render() {
-        return (
-          <div>
-            <h2>Todos:</h2>
-            <ol>
-              {this.state.items.map(item => (
-                <li key={item.id}>
-                  <input type="checkbox" checked={item.done} />
-                  <span style={{textDecoration: done ? 'line-through' : 'none'}}>
-                    {item.text}
-                  </span>
-                </li>
-              ))}
-            </ol>
-            <form onSubmit={e => {
-              e.preventDefault()
-              console.log("implement me")
-            }}>
-              Add todo:<input type='text' value={this.state.todoInput} />
-              <button type='submit'>add</button>
-            </form>
-          </div>
-        )
-      }
-    }
-    
-    export default App;`
-            }
+            source={TodoAppCode}
             margin="20px auto"
             overflow="overflow"
           />
         </Slide>
 
+        <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
+          <H>Migration of <br /><code>da-strategyreport</code></H>
+          <Heading textColor="primary">backend</Heading>
+        </Slide>
+
+        <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
+          <List>Configure a JAX-RS Servlet by creating an < br />
+            <code>@ApplicationPath</code>-annotated class < br />
+            and let it extend <code>javax.ws.rs.core.Application</code></List>
+          <CodePane lang='java' source={JsonServletCode} />
+        </Slide>
+
+        <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
+          <List>Create an JSON Endpoint by creating a < br />
+            <code> @Path</code>-annotated class < br />
+            with a <code>javax.ws.rs.GET</code> annotated method</List>
+          <CodePane lang='java' source={JsonEndpointCode} />
+        </Slide>
+
+        <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
+          <H>Migration of <br /><code>da-strategyreport</code></H>
+          <Heading textColor="primary">frontend</Heading>
+        </Slide>
+
+        <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
+          <List>Fetch data at page load< br />
+          </List>
+          <CodePane lang='jsx' source={FetchCode} />
+        </Slide>
+
+        <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
+          <List>Configure <code>package.json</code> to let the development server proxy API requests to port 8181< br />
+          </List>
+          <CodePane lang='jsx' source={ProxyConfig} />
+        </Slide>
+
+        <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
+          <List>On Backend: Enable basic authentication by modifying <code>web.xml</code>
+          </List>
+          <CodePane lang='xml' source={WebXmlConfig} />
+        </Slide>
+
+        <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
+          <H>Problems with CSS at scale</H>
+          <List>
+            <ListItem>Global namespace</ListItem>
+            <ListItem>Dependencies</ListItem>
+            <ListItem>Dead code elimination</ListItem>
+            <ListItem>Minification</ListItem>
+            <ListItem>Sharing constants</ListItem>
+            <ListItem>Isolation</ListItem>
+          </List>
+          <Text textColor="primary">with in scale I mean lot of components and lot of no-frontend-developers</Text>
+        </Slide>
+
+        <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
+          <H>Backup</H>
+          <List>
+            <ListItem>
+              <Link textColor="primary" href='http://www.se-radio.net/2018/06/se-radio-episode-327-glynn-bird-on-developer-productivity-with-open-source/'>Open source community, dealings in Github (Pod cast) </Link>
+            </ListItem>
+            <ListItem>
+              <Link textColor="primary" href='https://medium.com/@_alanbsmith/why-we-use-styled-components-at-decisiv-a8ac6e1507ac'>Why We Use Styled Components at Decisiv </Link>
+            </ListItem>
+            <ListItem>
+              <Link textColor="primary" href='https://medium.com/@perezpriego7/css-evolution-from-css-sass-bem-css-modules-to-styled-components-d4c1da3a659b'>
+                CSS Evolution: From CSS, SASS, BEM, CSS Modules to Styled Components</Link>
+            </ListItem>
+          </List>
+        </Slide>
       </Deck >
     );
   }

@@ -59,7 +59,7 @@ export default class Presentation extends React.Component {
           <Text margin="10px 0 0" textColor="tertiary" size={1} fit bold>
             at IT-Manufactory
           </Text>
-          <Text size={5}>presentation & code available at <code>git@digital-automotive-engineering.com:switajskim/react-workshop.git</code></Text>
+          <Text size={5}>presentation & code available at <Link href='https://github.com/Switajski/react-workshop'><code>https://github.com/Switajski/react-workshop</code></Link></Text>
         </Slide>
         <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
           <H caps>Agenda</H>
